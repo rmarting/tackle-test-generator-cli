@@ -107,9 +107,9 @@ def generate_randoop(config):
                       classpath
     if 'test_directory' not in config['general'].keys() or \
             config['general']['test_directory'] == '':
-        output_dir = app_name+constants.TKLTEST_DEFAULT_RANDOOP_TEST_DIR_SUFFIX
+        output_dir = app_name+constants.TKLTEST_DEFAULT_RANDOOP_TEST_DIR_SUFFIX + constants.TKLTEST_TEMP_DIR_SUFFIX
     else:
-        output_dir = config['general']['test_directory']
+        output_dir = config['general']['test_directory'] + constants.TKLTEST_TEMP_DIR_SUFFIX
 
     randoop_command += " randoop.main.Main gentests --junit-output-dir="+output_dir
     if config['generate']['partitions_file']:
@@ -273,9 +273,9 @@ def __get_evosuite_flags(config):
     flags += " -Djee="+str(config['generate']['jee_support']).lower()
     if 'test_directory' not in config['general'].keys() or \
             config['general']['test_directory'] == '':
-        output_dir = config['general']['app_name'] + constants.TKLTEST_DEFAULT_EVOSUITE_TEST_DIR_SUFFIX
+        output_dir = config['general']['app_name'] + constants.TKLTEST_DEFAULT_EVOSUITE_TEST_DIR_SUFFIX + constants.TKLTEST_TEMP_DIR_SUFFIX
     else:
-        output_dir = config['general']['test_directory']
+        output_dir = config['general']['test_directory'] + constants.TKLTEST_TEMP_DIR_SUFFIX
     flags += " -Dtest_dir=" + output_dir
     return flags, output_dir
 

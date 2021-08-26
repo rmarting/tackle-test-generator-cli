@@ -103,7 +103,7 @@ def generate_build_xml(app_name, monolith_app_path, app_classpath, test_root_dir
         app_reported_packages = []
 
     # set the build xml file name and content based on the build file
-    ant_build_xml_file = test_root_dir + os.sep + 'build.xml'
+    ant_build_xml_file = test_root_dir + constants.TKLTEST_TEMP_DIR_SUFFIX + os.sep + 'build.xml'
     # if micro:
     #     build_xml_file += 'micro.xml'
     # else:
@@ -119,7 +119,7 @@ def generate_build_xml(app_name, monolith_app_path, app_classpath, test_root_dir
     with open(ant_build_xml_file, 'w') as outp:
         outp.write(content)
 
-    maven_build_xml_file = test_root_dir + os.sep + 'pom.xml'
+    maven_build_xml_file = test_root_dir + constants.TKLTEST_TEMP_DIR_SUFFIX + os.sep + 'pom.xml'
     __build_maven(app_classpath, app_name, monolith_app_path, test_root_dir, test_dirs, collect_codecoverage,
                   app_packages, offline_instrumentation, main_reports_dir, maven_build_xml_file)
 

@@ -58,9 +58,13 @@ def process_generate_command(args, config):
         'general': config['general'],
         'generate': config['generate']
     }
-    generate_config_file = os.path.join(test_directory, constants.TKLTEST_GENERATE_CONFIG_FILE)
+    generate_config_file = os.path.join(test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX, constants.TKLTEST_GENERATE_CONFIG_FILE)
     with open(generate_config_file, 'w') as f:
         toml.dump(generate_config, f)
+
+    if os.path.exists(test_directory):
+        shutil.rmtree(test_directory)
+    os.rename(test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX, test_directory)
 
 
 def generate_ctd_amplified_tests(config):
@@ -157,8 +161,8 @@ def generate_ctd_amplified_tests(config):
 
     # generate ant build file
     test_dirs = [
-        os.path.join(test_directory, dir) for dir in os.listdir(test_directory)
-        if os.path.isdir(os.path.join(test_directory, dir)) and not dir.startswith('.')
+        os.path.join(test_directory, dir) for dir in os.listdir(test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX)
+        if os.path.isdir(os.path.join(test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX, dir)) and not dir.startswith('.')
     ]
 
     if config['general']['reports_path']:
@@ -359,7 +363,7 @@ def extend_sequences(app_name, monolith_app_path, app_classpath_file, ctd_file, 
     te_command += " -app " + app_name
     te_command += " -tp " + ctd_file
     te_command += " -ts " + bb_seq_file
-    te_command += " -od " + test_directory
+    te_command += " -od " + test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX
     if jee_support:
         te_command += " -jee"
     if not no_diff_assertions:
@@ -438,7 +442,7 @@ def __reset_test_directory(args, config):
         elif args.sub_command == "evosuite":
             test_directory = app_name + constants.TKLTEST_DEFAULT_EVOSUITE_TEST_DIR_SUFFIX
 
-    shutil.rmtree(test_directory, ignore_errors=True)
-    os.mkdir(test_directory)
+    shutil.rmtree(test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX, ignore_errors=True)
+    os.mkdir(test_directory + constants.TKLTEST_TEMP_DIR_SUFFIX)
     return test_directory
 

@@ -109,9 +109,9 @@ def generate_randoop(config):
             config['general']['test_directory'] == '':
         output_dir = app_name+constants.TKLTEST_DEFAULT_RANDOOP_TEST_DIR_SUFFIX
     else:
-        output_dir = config['general']['test_directory'] + constants.TKLTEST_TEMP_DIR_SUFFIX
+        output_dir = config['general']['test_directory']
 
-    randoop_command += " randoop.main.Main gentests --junit-output-dir="+output_dir
+    randoop_command += " randoop.main.Main gentests --junit-output-dir="+output_dir + constants.TKLTEST_TEMP_DIR_SUFFIX
     if config['generate']['partitions_file']:
         randoop_command += " --classlist=" + __generate_class_list_file(__parse_partitions_file(config['generate']['partitions_file']),
                                                                         config['general']['app_name'],
@@ -275,7 +275,7 @@ def __get_evosuite_flags(config):
             config['general']['test_directory'] == '':
         output_dir = config['general']['app_name'] + constants.TKLTEST_DEFAULT_EVOSUITE_TEST_DIR_SUFFIX
     else:
-        output_dir = config['general']['test_directory'] + constants.TKLTEST_TEMP_DIR_SUFFIX
+        output_dir = config['general']['test_directory']
     flags += " -Dtest_dir=" + output_dir
     return flags, output_dir
 

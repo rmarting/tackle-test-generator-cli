@@ -73,7 +73,7 @@ def get_build_classpath(config, subcommand='ctd-amplified', partition=None):
 
 def generate_build_xml(app_name, monolith_app_path, app_classpath, test_root_dir, test_dirs,
                            partitions_file, target_class_list, main_reports_dir, app_packages='',
-                           collect_codecoverage=False, offline_instrumentation=False):
+                           collect_codecoverage=False, offline_instrumentation=False, test_root_dir_suffix = ""):
     """Generates Ant build.xml file and Maven pom.xml for running tests.
 
     Generates Ant build.xml file and Maven pom.xml for running generated tests and collecting coverage information.
@@ -103,7 +103,7 @@ def generate_build_xml(app_name, monolith_app_path, app_classpath, test_root_dir
         app_reported_packages = []
 
     # set the build xml file name and content based on the build file
-    ant_build_xml_file = test_root_dir + constants.TKLTEST_TEMP_DIR_SUFFIX + os.sep + 'build.xml'
+    ant_build_xml_file = test_root_dir + test_root_dir_suffix + os.sep + 'build.xml'
     # if micro:
     #     build_xml_file += 'micro.xml'
     # else:
@@ -119,7 +119,7 @@ def generate_build_xml(app_name, monolith_app_path, app_classpath, test_root_dir
     with open(ant_build_xml_file, 'w') as outp:
         outp.write(content)
 
-    maven_build_xml_file = test_root_dir + constants.TKLTEST_TEMP_DIR_SUFFIX + os.sep + 'pom.xml'
+    maven_build_xml_file = test_root_dir + test_root_dir_suffix + os.sep + 'pom.xml'
     __build_maven(app_classpath, app_name, monolith_app_path, test_root_dir, test_dirs, collect_codecoverage,
                   app_packages, offline_instrumentation, main_reports_dir, maven_build_xml_file)
 

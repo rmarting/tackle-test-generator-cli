@@ -75,7 +75,8 @@ def generate_evosuite(config):
         test_dirs=[output_dir],
         partitions_file=config['generate']['partitions_file'],
         target_class_list=config['generate']['target_class_list'],
-        main_reports_dir=reports_dir
+        main_reports_dir=reports_dir,
+        test_root_dir_suffix=constants.TKLTEST_TEMP_DIR_SUFFIX
     )
     tkltest_status('Generated Ant build file {}'.format(os.path.abspath(os.path.join(output_dir, ant_build_file))))
     tkltest_status('Generated Maven build file {}'.format(os.path.abspath(os.path.join(output_dir, maven_build_file))))
@@ -144,7 +145,8 @@ def generate_randoop(config):
         test_dirs=[output_dir],
         partitions_file=config['generate']['partitions_file'],
         target_class_list=config['generate']['target_class_list'],
-        main_reports_dir=app_name+constants.TKLTEST_MAIN_REPORT_DIR_SUFFIX
+        main_reports_dir=app_name+constants.TKLTEST_MAIN_REPORT_DIR_SUFFIX,
+        test_root_dir_suffix=constants.TKLTEST_TEMP_DIR_SUFFIX
     )
     tkltest_status('Generated Ant build file {}'.format(os.path.abspath(os.path.join(output_dir, ant_build_file))))
     tkltest_status('Generated Maven build file {}'.format(os.path.abspath(os.path.join(output_dir, maven_build_file))))

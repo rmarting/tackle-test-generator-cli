@@ -178,7 +178,8 @@ def generate_ctd_amplified_tests(config):
         test_dirs=test_dirs,
         partitions_file=partitions_file,
         target_class_list=target_class_list,
-        main_reports_dir=reports_dir
+        main_reports_dir=reports_dir,
+        test_root_dir_suffix=constants.TKLTEST_TEMP_DIR_SUFFIX
     )
     tkltest_status('Generated Ant build file {}'.format(os.path.abspath(os.path.join(test_directory, ant_build_file))))
     tkltest_status('Generated Maven build file {}'.format(os.path.abspath(os.path.join(test_directory, maven_build_file))))

@@ -278,6 +278,6 @@ def __get_evosuite_flags(config):
         output_dir = config['general']['app_name'] + constants.TKLTEST_DEFAULT_EVOSUITE_TEST_DIR_SUFFIX
     else:
         output_dir = config['general']['test_directory']
-    flags += " -Dtest_dir=" + output_dir
+    flags += " -Dtest_dir=" + output_dir + constants.TKLTEST_TEMP_DIR_SUFFIX
     return flags, output_dir
 
